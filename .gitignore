@@ -1,52 +1,172 @@
-# Prerequisites
-*.d
+using System;
+using Telegram.Bot;
+using Telegram.Bot.Args;
+using Telegram.Bot.Types.ReplyMarkups;
 
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
+namespace Telegram_Bot
+{
+    class Program
+    {
+        private static string token { get; set; } = "5746582875:AAEhrxO84el4yqrOKv2xfyUdijD2vCL18oM";
+        private static TelegramBotClient client;
 
-# Linker output
-*.ilk
-*.map
-*.exp
+        static void Main(string[] args)
+        {
+            client = new TelegramBotClient(token);
+            client.StartReceiving();
+            client.OnMessage += OnMessegeHandler;
+            Console.ReadLine();
+            client.StopReceiving();
+        }
 
-# Precompiled Headers
-*.gch
-*.pch
+        private static async void OnMessegeHandler(object? sender, MessageEventArgs e)
+        {
+            var msg = e.Message;
+            if (msg.Text != null)
+            {
 
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
+                switch (msg.Text)
+                {
+                    case "Старт":
+                        await client.SendTextMessageAsync(
+                        chatId: msg.Chat.Id,
+                        text: "Приветствую. Вы Администратор или Пользователь?",
+                        replyMarkup: GetButtons());
 
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
+                        break;
 
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
+                    case "Главное меню":
+                        await client.SendTextMessageAsync(
+                        chatId: msg.Chat.Id,
+                        text: "Приветствую. Вы Администратор или Пользователь?",
+                        replyMarkup: GetButtons());
 
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
+                        break;
 
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
+                    case "Администратор":
+                        await client.SendTextMessageAsync(
+                        chatId: msg.Chat.Id,
+                        text: "Приветствую, Администратор",
+                        replyMarkup: GetButtons1());
+
+                        break;
+
+                    case "Пользователь":
+                        await client.SendTextMessageAsync(
+                        chatId: msg.Chat.Id,
+                        text: "Вы хотите забронировать аудиторию, или ознакомиться с уже забронированными?",
+                        replyMarkup: GetButtons2());
+
+                        break;
+
+                    case "Бронь":
+                        await client.SendTextMessageAsync(
+                        chatId: msg.Chat.Id,
+                        text: "Выберите нужный этаж",
+                        replyMarkup: GetButtons5());
+
+                        break;
+
+                    case "Забронировать":
+                        await client.SendTextMessageAsync(
+                        chatId: msg.Chat.Id,
+                        text: "Бронируй с ним аудиторию: https://t.me/AnonTwoyBatyaSmotritZaToboy_bot",
+                        replyMarkup: GetButtons3());
+
+                        break;
+
+                    case "4 этаж":
+                        await client.SendTextMessageAsync(
+                          chatId: msg.Chat.Id,
+                            text: "https://docs.google.com/spreadsheets/d/1VFEqgk7kJdnERY3LjjrSNSwqzKRZ8NVdFMayWXeZpqo/edit?usp=sharing",
+                            replyToMessageId: msg.MessageId,
+                            replyMarkup: GetButtons5());
+                        break;
+                    case "3 этаж":
+                        await client.SendTextMessageAsync(
+                          chatId: msg.Chat.Id,
+                            text: "https://docs.google.com/spreadsheets/d/1d7Qw-CTHIGGaE8SjXAMKscX0U1nN-CY8jVmPrYe58sk/edit?usp=sharing",
+                            replyToMessageId: msg.MessageId,
+                            replyMarkup: GetButtons5());
+                        break;
+                    case "2 этаж":
+                        await client.SendTextMessageAsync(
+                          chatId: msg.Chat.Id,
+                            text: "https://docs.google.com/spreadsheets/d/1RS9sfOBpryiQJsPl3u-3GTHEthMw7QazyPiqmar8RXU/edit?usp=sharing",
+                            replyToMessageId: msg.MessageId,
+                            replyMarkup: GetButtons5());
+                        break;
+                    case "1 этаж":
+                        await client.SendTextMessageAsync(
+                        chatId: msg.Chat.Id,
+                        text: "https://docs.google.com/spreadsheets/d/1Y483aPPvyJh6vGnaSS5AEd5VLblLO6n3wQutEZq_fBw/edit?usp=sharing",
+                        replyMarkup: GetButtons5());
+
+                        break;
+                }
+
+            }
+        }
+
+        private static IReplyMarkup GetButtons5()
+        {
+            return new ReplyKeyboardMarkup
+            {
+                Keyboard = new List<List<KeyboardButton>>
+                {
+                    new List<KeyboardButton>{ new KeyboardButton { Text = "1 этаж"}, new KeyboardButton { Text = "2 этаж"} },
+                    new List<KeyboardButton>{ new KeyboardButton { Text = "3 этаж"}, new KeyboardButton { Text = "4 этаж"} },
+                    new List<KeyboardButton>{ new KeyboardButton { Text = "Главное меню"} }
+                }
+            };
+        }
+
+        private static IReplyMarkup GetButtons()
+        {
+            return new ReplyKeyboardMarkup
+            {
+                Keyboard = new List<List<KeyboardButton>>
+                {
+                       new List<KeyboardButton>{ new KeyboardButton { Text = "Администратор"}, new KeyboardButton { Text = "Пользователь"} }
+                }
+            };
+
+        }
+
+        private static IReplyMarkup GetButtons1()
+        {
+            return new ReplyKeyboardMarkup
+            {
+                Keyboard = new List<List<KeyboardButton>>
+                {
+                       new List<KeyboardButton>{ new KeyboardButton { Text = "Панель управления"}, new KeyboardButton { Text = "Главное меню"} }
+                }
+            };
+
+        }
+
+        private static IReplyMarkup GetButtons2()
+        {
+            return new ReplyKeyboardMarkup
+            {
+                Keyboard = new List<List<KeyboardButton>>
+                {
+                       new List<KeyboardButton>{ new KeyboardButton { Text = "Бронь"}, new KeyboardButton { Text = "Забронировать"} }
+                }
+            };
+
+        }
+
+        private static IReplyMarkup GetButtons3()
+        {
+            return new ReplyKeyboardMarkup
+            {
+                Keyboard = new List<List<KeyboardButton>>
+                {
+                       new List<KeyboardButton>{ new KeyboardButton { Text = "Главное меню" }, new KeyboardButton { Text = "Забронировать"} }
+                }
+            };
+
+        }
+    }
+}
