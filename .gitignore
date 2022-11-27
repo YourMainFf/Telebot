@@ -1,6 +1,8 @@
+
 using System;
 using Telegram.Bot;
 using Telegram.Bot.Args;
+using Telegram.Bot.Requests;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace Telegram_Bot
@@ -8,7 +10,9 @@ namespace Telegram_Bot
     class Program
     {
         private static string token { get; set; } = "5746582875:AAEhrxO84el4yqrOKv2xfyUdijD2vCL18oM";
-        private static TelegramBotClient client;
+        private static TelegramBotClient? client;
+        string n1;
+        string n2;
 
         static void Main(string[] args)
         {
@@ -30,7 +34,7 @@ namespace Telegram_Bot
                     case "Старт":
                         await client.SendTextMessageAsync(
                         chatId: msg.Chat.Id,
-                        text: "Приветствую. Вы Администратор или Пользователь?",
+                        text: "Приветствую, что вы хотели?",
                         replyMarkup: GetButtons());
 
                         break;
@@ -38,28 +42,36 @@ namespace Telegram_Bot
                     case "Главное меню":
                         await client.SendTextMessageAsync(
                         chatId: msg.Chat.Id,
-                        text: "Приветствую. Вы Администратор или Пользователь?",
+                        text: "Что-то другое?",
                         replyMarkup: GetButtons());
 
                         break;
 
-                    case "Администратор":
+                    case "Узнать о СКБ КИТ":
                         await client.SendTextMessageAsync(
                         chatId: msg.Chat.Id,
-                        text: "Приветствую, Администратор",
-                        replyMarkup: GetButtons1());
+                        text: "Студенческое конструкторское бюро «КИТ» создано на базе института компьютерных технологий и информационной безопасности с целью развития технического творчества студентов. В СКБ студенты работают в рамках занятий проектной деятельностью и создают собственные технологические проекты. Инициативу студентов поддерживают аспиранты и преподаватели ИКТИБ, а также представители бизнеса – партнеры СКБ. СКБ «КИТ» предоставляет возможности:\r\n\r\nвыполнять технологические задачи реального рынка\r\nпознакомиться с будущими работодателями\r\nнайти команду единомышленников\r\nпрокачать свои навыки в разработке и управлении проектами\r\nполучить доступ к современному оборудованию\r\nучаствовать в форумах, конкурсах и путешествовать по всему миру!\r\nhttp://kit.sfedu.ru/?page_id=10",
+                        replyMarkup: GetButtons());
 
                         break;
 
-                    case "Пользователь":
+                    case "Узнать о возможности брони у администратора":
                         await client.SendTextMessageAsync(
                         chatId: msg.Chat.Id,
-                        text: "Вы хотите забронировать аудиторию, или ознакомиться с уже забронированными?",
-                        replyMarkup: GetButtons2());
+                        text: "Написать администратору - @r0bt0pi",
+                        replyMarkup: GetButtons());
 
                         break;
 
-                    case "Бронь":
+                    case "Написать администратору":
+                        await client.SendTextMessageAsync(
+                        chatId: msg.Chat.Id,
+                        text: "Написать администратору - @r0bt0pi",
+                        replyMarkup: GetButtons());
+
+                        break;
+
+                    case "Забронировать аудиторию":
                         await client.SendTextMessageAsync(
                         chatId: msg.Chat.Id,
                         text: "Выберите нужный этаж",
@@ -70,39 +82,104 @@ namespace Telegram_Bot
                     case "Забронировать":
                         await client.SendTextMessageAsync(
                         chatId: msg.Chat.Id,
-                        text: "Бронируй с ним аудиторию: https://t.me/AnonTwoyBatyaSmotritZaToboy_bot",
-                        replyMarkup: GetButtons3());
+                        text: "Проконсультируйтесь с администатором о возможности брони: https://t.me/AnonTwoyBatyaSmotritZaToboy_bot",
+                        replyMarkup: GetButtons());
 
                         break;
 
                     case "4 этаж":
                         await client.SendTextMessageAsync(
                           chatId: msg.Chat.Id,
-                            text: "https://docs.google.com/spreadsheets/d/1VFEqgk7kJdnERY3LjjrSNSwqzKRZ8NVdFMayWXeZpqo/edit?usp=sharing",
+                            text: "Ознакомьтесь с забронированными аудиториями на 4'ом этаже https://docs.google.com/spreadsheets/d/1VFEqgk7kJdnERY3LjjrSNSwqzKRZ8NVdFMayWXeZpqo/edit?usp=sharing",
                             replyToMessageId: msg.MessageId,
-                            replyMarkup: GetButtons5());
+                            replyMarkup: GetButtons3());
                         break;
                     case "3 этаж":
                         await client.SendTextMessageAsync(
                           chatId: msg.Chat.Id,
-                            text: "https://docs.google.com/spreadsheets/d/1d7Qw-CTHIGGaE8SjXAMKscX0U1nN-CY8jVmPrYe58sk/edit?usp=sharing",
+                            text: "Ознакомьтесь с забронированными аудиториями на 3'ем этаже https://docs.google.com/spreadsheets/d/1d7Qw-CTHIGGaE8SjXAMKscX0U1nN-CY8jVmPrYe58sk/edit?usp=sharing",
                             replyToMessageId: msg.MessageId,
-                            replyMarkup: GetButtons5());
+                            replyMarkup: GetButtons3());
                         break;
                     case "2 этаж":
                         await client.SendTextMessageAsync(
                           chatId: msg.Chat.Id,
-                            text: "https://docs.google.com/spreadsheets/d/1RS9sfOBpryiQJsPl3u-3GTHEthMw7QazyPiqmar8RXU/edit?usp=sharing",
+                            text: "Ознакомьтесь с забронированными аудиториями на 2'ом этаже https://docs.google.com/spreadsheets/d/1RS9sfOBpryiQJsPl3u-3GTHEthMw7QazyPiqmar8RXU/edit?usp=sharing",
                             replyToMessageId: msg.MessageId,
-                            replyMarkup: GetButtons5());
+                            replyMarkup: GetButtons3());
                         break;
                     case "1 этаж":
                         await client.SendTextMessageAsync(
                         chatId: msg.Chat.Id,
-                        text: "https://docs.google.com/spreadsheets/d/1Y483aPPvyJh6vGnaSS5AEd5VLblLO6n3wQutEZq_fBw/edit?usp=sharing",
-                        replyMarkup: GetButtons5());
+                        text: "Ознакомьтесь с забронированными аудиториями на 1'ом этаже https://docs.google.com/spreadsheets/d/1Y483aPPvyJh6vGnaSS5AEd5VLblLO6n3wQutEZq_fBw/edit?usp=sharing",
+                        replyMarkup: GetButtons3());
 
                         break;
+
+                    case "Забронировать оборудование":
+                        await client.SendTextMessageAsync(
+                        chatId: msg.Chat.Id,
+                        text: "Какое именно оборудование вы хотите использовать?",
+                        replyMarkup: GetButtons6());
+
+                        break;
+
+                    case "VR - очки":
+
+                        var pic = await client.SendPhotoAsync(
+                        chatId: msg.Chat.Id,
+                        photo: "https://vk.com/photo-94492813_366776908");
+
+                        await client.SendTextMessageAsync(
+                        chatId: msg.Chat.Id,
+                        text: "https://docs.google.com/spreadsheets/d/1u3Wn_H0m4A-r12xOmtvYVQWudhtH6IkQ4RwStVOB_SI/edit?usp=sharing",
+                        replyMarkup: GetButtons3());
+
+                        break;
+
+                    case "3D - принтер":
+
+                        var pict = await client.SendPhotoAsync(
+                        chatId: msg.Chat.Id,
+                        photo: "https://sun9-west.userapi.com/sun9-13/s/v1/ig1/hITJHAlVmtHB5lSmlgBoWoNpF18g_f-l8910XrTiPhNNXInSGy31Kb3aSjiJRyNtk7NyNU7E.jpg?size=600x600&quality=96&type=album",
+                        replyMarkup: GetButtons6());
+
+                        await client.SendTextMessageAsync(
+                        chatId: msg.Chat.Id,
+                        text: "https://docs.google.com/spreadsheets/d/1rw0EKMM897b1kG5HoQDOnuR5kZgB3uvlB28at1FbYmU/edit?usp=sharing",
+                        replyMarkup: GetButtons3());
+
+                        break;
+
+                    case "Стенд сборки робота":
+
+                        var pictu = await client.SendPhotoAsync(
+                        chatId: msg.Chat.Id,
+                        photo: "https://sun9-west.userapi.com/sun9-48/s/v1/ig2/Gq2ZqDkKHFKcZGm0nVjaDlRCGoXwkw-RNoNYHNn8OGcgG8d2lIWEkASWu8XR4GSjInnx0KCdr8346fuuH9j9S5cH.jpg?size=629x694&quality=95&type=album",
+                        replyMarkup: GetButtons6());
+
+
+                        await client.SendTextMessageAsync(
+                        chatId: msg.Chat.Id,
+                        text: "Фотографии стенда пока нет, но вы держитесь) https://docs.google.com/spreadsheets/d/1PBudarGl6geo7sBkBq06Qbl0IyA6qrhSDmTE2wzOrPA/edit?usp=sharing",
+                        replyMarkup: GetButtons3());
+
+                        break;
+
+                    case "Обычный принтер":
+
+                        var pictur = await client.SendPhotoAsync(
+                        chatId: msg.Chat.Id,
+                        photo: "https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.tradeinn.com%2Ff%2F13735%2F137350891%2Fcanon-pixma-ts3150-%25D0%259C%25D0%25BD%25D0%25BE%25D0%25B3%25D0%25BE%25D1%2584%25D1%2583%25D0%25BD%25D0%25BA%25D1%2586%25D0%25B8%25D0%25BE%25D0%25BD%25D0%25B0%25D0%25BB%25D1%258C%25D0%25BD%25D1%258B%25D0%25B9-%25D0%259F%25D1%2580%25D0%25B8%25D0%25BD%25D1%2582%25D0%25B5%25D1%2580.jpg&imgrefurl=https%3A%2F%2Fwww.tradeinn.com%2Ftechinn%2Fru%2Fcanon-pixma-ts3150-%25D0%259C%25D0%25BD%25D0%25BE%25D0%25B3%25D0%25BE%25D1%2584%25D1%2583%25D0%25BD%25D0%25BA%25D1%2586%25D0%25B8%25D0%25BE%25D0%25BD%25D0%25B0%25D0%25BB%25D1%258C%25D0%25BD%25D1%258B%25D0%25B9-%25D0%259F%25D1%2580%25D0%25B8%25D0%25BD%25D1%2582%25D0%25B5%25D1%2580%2F137350891%2Fp&tbnid=2lzxsllCyuy5QM&vet=12ahUKEwjYmPf49Mz7AhWCi8MKHTyFB5QQ94IIKAt6BQgBEJUC..i&docid=ZY_TeCnS3s9A6M&w=1000&h=1000&q=%D0%BF%D1%80%D0%B8%D0%BD%D1%82%D0%B5%D1%80&ved=2ahUKEwjYmPf49Mz7AhWCi8MKHTyFB5QQ94IIKAt6BQgBEJUC",
+                        replyMarkup: GetButtons6());
+
+                        await client.SendTextMessageAsync(
+                        chatId: msg.Chat.Id,
+                        text: "https://docs.google.com/spreadsheets/d/1t2TU8KG1ZpqU2KU5SQy8qbG3Q8Bi8qqn707FTq4JFsU/edit?usp=sharing",
+                        replyMarkup: GetButtons3());
+
+                        break;
+
                 }
 
             }
@@ -127,23 +204,13 @@ namespace Telegram_Bot
             {
                 Keyboard = new List<List<KeyboardButton>>
                 {
-                       new List<KeyboardButton>{ new KeyboardButton { Text = "Администратор"}, new KeyboardButton { Text = "Пользователь"} }
+                       new List<KeyboardButton>{ new KeyboardButton { Text = "Написать администратору"}, new KeyboardButton { Text = "Узнать о СКБ КИТ"} },
+                       new List<KeyboardButton>{ new KeyboardButton { Text = "Забронировать аудиторию"}, new KeyboardButton { Text = "Забронировать оборудование"} }
                 }
             };
 
         }
 
-        private static IReplyMarkup GetButtons1()
-        {
-            return new ReplyKeyboardMarkup
-            {
-                Keyboard = new List<List<KeyboardButton>>
-                {
-                       new List<KeyboardButton>{ new KeyboardButton { Text = "Панель управления"}, new KeyboardButton { Text = "Главное меню"} }
-                }
-            };
-
-        }
 
         private static IReplyMarkup GetButtons2()
         {
@@ -151,7 +218,21 @@ namespace Telegram_Bot
             {
                 Keyboard = new List<List<KeyboardButton>>
                 {
-                       new List<KeyboardButton>{ new KeyboardButton { Text = "Бронь"}, new KeyboardButton { Text = "Забронировать"} }
+                  new List<KeyboardButton>{ new KeyboardButton { Text = "Аудитория"}, new KeyboardButton { Text = "Оборудование"} }
+                }
+            };
+
+        }
+
+        private static IReplyMarkup GetButtons6()
+        {
+            return new ReplyKeyboardMarkup
+            {
+                Keyboard = new List<List<KeyboardButton>>
+                {
+                       new List<KeyboardButton>{ new KeyboardButton { Text = "VR - очки"}, new KeyboardButton { Text = "3D - принтер" } },
+                       new List<KeyboardButton>{ new KeyboardButton { Text = "Стенд сборки робота"}, new KeyboardButton { Text = "Обычный принтер" } },
+                       new List<KeyboardButton>{ new KeyboardButton { Text = "Главное меню"} }
                 }
             };
 
@@ -163,7 +244,7 @@ namespace Telegram_Bot
             {
                 Keyboard = new List<List<KeyboardButton>>
                 {
-                       new List<KeyboardButton>{ new KeyboardButton { Text = "Главное меню" }, new KeyboardButton { Text = "Забронировать"} }
+                       new List<KeyboardButton>{ new KeyboardButton { Text = "Узнать о возможности брони у администратора"} }
                 }
             };
 
