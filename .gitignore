@@ -177,6 +177,13 @@ namespace Telegram_Bot
                         replyMarkup: GetButtons3());
 
                         break;
+                    default:
+                        await client.SendTextMessageAsync(
+                        chatId: msg.Chat.Id,
+                        text: "Я вас не понимаю. Пожалуйста, выберете что-то из предложенных вариантов",
+                        replyMarkup: GetButtons());
+
+                        break;
 
                 }
 
